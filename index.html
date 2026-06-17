@@ -741,16 +741,28 @@
   }
   function closeCatPanel() { catPanelOpen=false; document.getElementById('catPanel').classList.remove('open'); }
   function saveCatItem() {
-    const name=document.getElementById('catName').value.trim();
-    const kcal100=parseFloat(document.getElementById('catKcal').value)||0;
-    const c100=parseFloat(document.getElementById('catC').value)||0;
-    const p100=parseFloat(document.getElementById('catP').value)||0;
-    const g100=parseFloat(document.getElementById('catG').value)||0;
-    const defaultG=parseFloat(document.getElementById('catDefaultG').value)||100;
-    if (!name||!kcal100) return;
-    catalog.push({ name, defaultG, kcal:kcal100/100, c:c100/100, p:p100/100, g:g100/100 });
-    saveCatalog(); closeCatPanel(); renderFoodList();
-  }
+  const name = document.getElementById('catName').value.trim();
+  const kcal = parseFloat(document.getElementById('catKcal').value) || 0;
+  const c = parseFloat(document.getElementById('catC').value) || 0;
+  const p = parseFloat(document.getElementById('catP').value) || 0;
+  const g = parseFloat(document.getElementById('catG').value) || 0;
+  const defaultG = parseFloat(document.getElementById('catDefaultG').value) || 100;
+
+  if (!name) return;
+
+  catalog.push({
+    name,
+    defaultG,
+    kcal,
+    c,
+    p,
+    g
+  });
+
+  saveCatalog();
+  closeCatPanel();
+  renderFoodList();
+}
 
   function renderFoodList() {
     const query=document.getElementById('searchInput').value.trim().toLowerCase();
@@ -767,17 +779,27 @@
     function makeItem(item) {
       const div=document.createElement('div');
       div.className='food-item';
-      const kcalPer100 = Math.round(item.kcal*100);
-      const cPer100 = Math.round(item.c*100), pPer100 = Math.round(item.p*100), gPer100 = Math.round(item.g*100);
+      const kcalPerGram = item.kcal.toFixed(2);
+      const cPerGram = item.c.toFixed(2);
+      const pPerGram = item.p.toFixed(2);
+      const gPerGram = item.g.toFixed(2);
       div.innerHTML=`
         <div class="food-item-info">
           <div class="food-item-name">
             ${item.name}
             ${item.score>0&&!query?`<span class="food-freq-badge">×${item.score}</span>`:''}
           </div>
-          <div class="food-item-macros"><span class="fc">C${cPer100}</span> · <span class="fp">P${pPer100}</span> · <span class="fg">G${gPer100}</span> /100g</div>
+          <div class="food-item-macros">
+            <span class="fc">C${cPerGram}</span> ·
+            <span class="fp">P${pPerGram}</span> ·
+            <span class="fg">G${gPerGram}</span> /g
+          </div>
+
+          <div class="food-item-kcal">
+          ${kcalPerGram}
+          <br>
+          <span style="font-size:8px;color:var(--muted)">kcal/g</span>
         </div>
-        <div class="food-item-kcal">${kcalPer100}<br><span style="font-size:8px;color:var(--muted)">kcal/100g</span></div>
         <button class="food-add-btn" onclick="openQtySheet(${item.idx})">+</button>`;
       return div;
     }
