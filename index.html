@@ -484,7 +484,38 @@
 
 <script>
   // ══ FOOD DATABASE (per 100g) ══
-  const FOOD_DB = __FOOD_DB_PLACEHOLDER__;
+  const FOOD_DB = [
+  {
+    name: "Riso",
+    defaultG: 100,
+    per100: {
+      kcal: 360,
+      c: 80,
+      p: 7,
+      g: 1
+    }
+  },
+  {
+    name: "Petto di pollo",
+    defaultG: 150,
+    per100: {
+      kcal: 165,
+      c: 0,
+      p: 31,
+      g: 3.6
+    }
+  },
+  {
+    name: "Uova",
+    defaultG: 100,
+    per100: {
+      kcal: 143,
+      c: 1,
+      p: 13,
+      g: 10
+    }
+  }
+];
 
   // ══ DATE UTILS ══
   function dateKey(d) {
