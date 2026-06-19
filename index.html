@@ -18,7 +18,7 @@
     --danger: #f96a6a;
     --c: #f9c46a;
     --p: #5a9fd4;
-    --g: #f97a7a;
+    --g: #f99585;
     --water: #add0f0;
     --green-grad: linear-gradient(135deg, #1a3a1a, #1e4d1e);
     --tab-h: 64px;
@@ -154,18 +154,20 @@
   .entries { display: flex; flex-direction: column; gap: 10px; }
   .entry-slot-label { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); padding: 4px 0 0; }
   .entry { display: flex; gap: 4px; }
-  .entry-left { flex: 65; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 9px 14px; min-width: 0; }
+  .entry-left { flex: 75; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 9px 14px; min-width: 0; }
   .entry-name-row { font-size: 12px; margin-bottom: 5px; display: flex; align-items: center; gap: 7px; color: var(--text); }
   .entry-qty { font-size: 9px; background: #2a2a2a; border-radius: 8px; padding: 2px 7px; color: var(--accent); font-weight: 700; }
   .entry-grams { font-size: 9px; color: var(--muted); }
   .comp-bars { display: flex; height: 5px; border-radius: 3px; overflow: hidden; gap: 1px; margin-bottom: 4px; }
   .comp-seg { height: 100%; border-radius: 1px; transition: width 0.4s ease; }
   .entry-kcal-small { font-size: 10px; color: var(--accent); }
-  .entry-right { position: relative; flex: 35; background: #141414; border: 1px solid var(--border); border-radius: 8px; padding: 18px 10px 9px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 5px; }
-  .entry-macros { font-size: 10px; color: var(--muted); white-space: nowrap; display: flex; gap: 7px; }
-  .entry-macros .ec { color: var(--c); } .entry-macros .ep { color: var(--p); } .entry-macros .eg { color: var(--g); }
-  .entry-actions { display: flex; align-items: center; gap: 8px; }
-  .qty-btn { background: var(--border); border: none; color: var(--text); font-family: inherit; font-size: 17px; width: 30px; height: 30px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.15s; line-height: 1; }
+  .entry-right { position: relative; flex: 25; background: #141414; border: 1px solid var(--border); border-radius: 8px; padding: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .entry-bottom-row { display: flex; align-items: center; gap: 8px; margin-top: 2px; }
+  .entry-macros-inline { display: flex; gap: 5px; font-size: 9px; }
+  .entry-macros-inline .ec { color: var(--c); } .entry-macros-inline .ep { color: var(--p); } .entry-macros-inline .eg { color: var(--g); }
+  .entry-actions-box { display: flex; gap: 4px; border: 1px solid var(--border); border-radius: 8px; padding: 4px; background: var(--bg); }
+  .entry-actions { display: flex; flex-direction: row; gap: 4px; width: 80%; }
+  .qty-btn { background: var(--border); border: none; color: var(--text); font-family: inherit; font-size: 17px; flex: 1; height: 28px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.15s; line-height: 1; }
   .qty-btn:hover { background: #333; }
   .del-x-btn { position: absolute; top: 0; right: 0; width: 26px; height: 26px; background: var(--border); border: none; border-left: 1px solid var(--border); border-bottom: 1px solid var(--border); border-radius: 0 8px 0 8px; color: var(--muted); font-size: 13px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: color 0.15s, background 0.15s; }
   .del-x-btn:hover { color: #fff; background: var(--danger); }
@@ -422,8 +424,10 @@
   <div class="dates" id="reportDateTabs"></div>
   <div class="dates-extra hidden" id="reportDatesExtra"></div>
 
+  <hr class="sep" style="margin:14px 0">
   <div class="report-period-row">
-    <button class="report-period-btn active" data-period="week" onclick="setReportPeriod('week')">settimana</button>
+    <button class="report-period-btn active" data-period="day" onclick="setReportPeriod('day')">giorno</button>
+    <button class="report-period-btn" data-period="week" onclick="setReportPeriod('week')">settimana</button>
     <button class="report-period-btn" data-period="month" onclick="setReportPeriod('month')">mese</button>
     <button class="report-period-btn" data-period="quarter" onclick="setReportPeriod('quarter')">quarter</button>
     <button class="report-period-btn" data-period="year" onclick="setReportPeriod('year')">anno</button>
@@ -574,7 +578,7 @@
   let extraDatesOpen = false;
   let pendingDelete = null; // {type:'entry'|'cat', index}
   let qtyContext = null; // {idx, item, unit}
-  let reportPeriod = 'week';
+  let reportPeriod = 'day';
   let reportActive = todayKey();
   let reportExtraDatesOpen = false;
 
@@ -772,13 +776,13 @@
               <span class="entry-grams">${tGrams}${unit}</span>
             </div>
             ${compBars(tC,tP,tG)}
-            <div class="entry-kcal-small">${tK} kcal</div>
+            <div class="entry-bottom-row">
+              <span class="entry-kcal-small">${tK}<span style="font-size:8px;color:var(--muted)"> kcal</span></span>
+              <span style="color:var(--muted);font-size:9px">·</span>
+              <span class="entry-macros-inline"><span class="ec">C${tC}</span><span class="ep">P${tP}</span><span class="eg">G${tG}</span></span>
+            </div>
           </div>
           <div class="entry-right">
-            <button class="del-x-btn" onclick="askDeleteGroup(${gi})">✕</button>
-            <div class="entry-macros">
-              <span class="ec">C${tC}</span><span class="ep">P${tP}</span><span class="eg">G${tG}</span>
-            </div>
             <div class="entry-actions">
               <button class="qty-btn" onclick="removeEntryInstance(${lastIdx})">−</button>
               <button class="qty-btn" onclick="duplicateEntry(${lastIdx})">+</button>
@@ -902,6 +906,8 @@
     saveCatalog(); closeCatPanel(); renderFoodList();
   }
 
+  let freqExpanded = false;
+
   function renderFoodList() {
     const query=document.getElementById('searchInput').value.trim().toLowerCase();
     const wrap=document.getElementById('foodList');
@@ -910,8 +916,9 @@
     let items=catalog.map((item,idx)=>({...item,idx,score:freq[item.name]||0}));
     if (query) items=items.filter(it=>it.name.toLowerCase().includes(query));
 
-    const suggested=items.filter(it=>it.score>0).sort((a,b)=>b.score-a.score).slice(0,6);
-    const suggestedNames=new Set(suggested.map(it=>it.name));
+    const allSuggested=items.filter(it=>it.score>0).sort((a,b)=>b.score-a.score).slice(0,6);
+    const suggested=freqExpanded ? allSuggested : allSuggested.slice(0,3);
+    const suggestedNames=new Set(allSuggested.map(it=>it.name));
     const rest=items.filter(it=>!suggestedNames.has(it.name)).sort((a,b)=>a.name.localeCompare(b.name));
 
     function makeItem(item) {
@@ -934,10 +941,19 @@
     }
 
     if (suggested.length&&!query) {
+      const header=document.createElement('div');
+      header.style.cssText='display:flex;align-items:center;justify-content:space-between';
       const lbl=document.createElement('div');
       lbl.className='food-section-label';
+      lbl.style.padding='10px 0 8px';
       lbl.textContent='frequenti';
-      wrap.appendChild(lbl);
+      const tog=document.createElement('button');
+      tog.style.cssText='background:none;border:none;color:var(--muted);font-family:inherit;font-size:10px;cursor:pointer;padding:0;letter-spacing:0.05em';
+      tog.textContent = allSuggested.length>3 ? (freqExpanded?'nascondi ▲':'espandi ▼') : '';
+      tog.onclick=()=>{ freqExpanded=!freqExpanded; renderFoodList(); };
+      header.appendChild(lbl);
+      if (allSuggested.length>3) header.appendChild(tog);
+      wrap.appendChild(header);
       const block=document.createElement('div');
       block.className='freq-block';
       suggested.forEach(it=>block.appendChild(makeItem(it)));
@@ -1105,6 +1121,7 @@
     renderReport();
   }
   function getPeriodDays(p) {
+    if (p==='day') return 1;
     if (p==='week') return 7;
     if (p==='month') return 30;
     if (p==='quarter') return 90;
