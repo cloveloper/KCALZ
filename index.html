@@ -23,7 +23,24 @@
     --green-grad: linear-gradient(135deg, #1a3a1a, #1e4d1e);
     --tab-h: 64px;
   }
+  html[data-theme="light"] {
+    --bg: #f2f2f7;
+    --surface: #ffffff;
+    --border: #d1d1d6;
+    --text: #6c6c70;
+    --muted: #aeaeb2;
+    --green-grad: linear-gradient(135deg, #d4f5d4, #c2ecc2);
+  }
+  html[data-theme="light"] .big-add-btn:hover { background: #e5e5ea; }
+  html[data-theme="light"] .nav-tab.active { background: #e5e5ea; }
+  html[data-theme="light"] .report-stat-card .rs-val { color: var(--text); }
+  html[data-theme="light"] .food-item-name { color: var(--text); }
+  html[data-theme="light"] .btn-primary { color: #1c1c1e; }
+  html[data-theme="light"] .entry-left { background: #f7f7f8; }
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  input[type=number]::-webkit-outer-spin-button,
+  input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  input[type=number] { -moz-appearance: textfield; }
   body { background: var(--bg); color: var(--text); font-family: 'SF Mono','Fira Code',monospace; min-height: 100vh; overflow-x: hidden; }
 
   /* SPLASH */
@@ -55,6 +72,7 @@
     position: fixed; bottom: 0; left: 0; right: 0; height: var(--tab-h);
     background: transparent; display: flex; align-items: center; justify-content: center;
     gap: 10px; z-index: 100; padding: 8px 16px calc(8px + env(safe-area-inset-bottom));
+    transform: translateZ(0); -webkit-transform: translateZ(0);
   }
   .bottom-nav::before {
     content: '';
@@ -110,7 +128,8 @@
   .big-add-btn:active { transform: scale(0.95); }
 
   /* DATE TABS */
-  .dates { display: flex; gap: 8px; margin-bottom: 0; align-items: center; justify-content: center; }
+  .dates { display: flex; gap: 8px; margin-bottom: 0; align-items: center; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .dates::-webkit-scrollbar { display: none; }
   .date-tab { flex-shrink: 0; padding: 6px 13px; border: 1px solid var(--border); border-radius: 4px; font-size: 11px; cursor: pointer; background: none; color: var(--muted); font-family: inherit; transition: all 0.15s; }
   .date-tab.active { border-color: var(--accent); color: var(--accent); }
   .date-tab:hover:not(.active) { border-color: #444; color: var(--text); }
@@ -127,13 +146,22 @@
   .goals-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .goal-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 10px 14px; position: relative; transition: background 0.4s, border-color 0.4s; }
   .goal-card.full { grid-column: 1/-1; }
-  .goal-card.complete { background: var(--green-grad); border-color: #2d6b2d; }
+  .goal-card.complete { border-color: currentColor; }
+  .goal-card.gc-kcal.complete { background: linear-gradient(135deg, #254560, #2a506e); border-color: #4a80a8; }
+  .goal-card.gc-c.complete   { background: linear-gradient(135deg, #504020, #5a4a22); border-color: #a88035; }
+  .goal-card.gc-p.complete   { background: linear-gradient(135deg, #3e3050, #48385e); border-color: #8870a8; }
+  .goal-card.gc-g.complete   { background: linear-gradient(135deg, #503030, #5e3835); border-color: #a86060; }
+  .goal-card.gc-water.complete { background: var(--green-grad); border-color: #2d6b2d; }
+  html[data-theme="light"] .goal-card.gc-kcal.complete { background: linear-gradient(135deg, #daeef9, #c8e4f5); border-color: #8ab8d8; }
+  html[data-theme="light"] .goal-card.gc-c.complete   { background: linear-gradient(135deg, #fdf3d8, #faeac0); border-color: #d4a840; }
+  html[data-theme="light"] .goal-card.gc-p.complete   { background: linear-gradient(135deg, #f0e8f8, #e4d8f0); border-color: #9878b8; }
+  html[data-theme="light"] .goal-card.gc-g.complete   { background: linear-gradient(135deg, #fde8e4, #f8d8d0); border-color: #d07868; }
+  html[data-theme="light"] .goal-card.gc-water.complete { background: var(--green-grad); border-color: #5aaa5a; }
   .gc-label { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; padding-right: 20px; }
   .gc-val { font-size: 17px; font-weight: 700; }
   .gc-sub { font-size: 10px; color: var(--muted); margin-top: 2px; }
   .gc-bar-track { height: 3px; background: var(--border); border-radius: 2px; margin-top: 8px; overflow: hidden; }
   .gc-bar-fill { height: 100%; border-radius: 2px; transition: width 0.4s ease; }
-  .gc-bar-fill.over { background: var(--danger) !important; }
   .gc-kcal .gc-val { color: var(--accent); } .gc-kcal .gc-bar-fill { background: var(--accent); }
   .gc-c .gc-val { color: var(--c); } .gc-c .gc-bar-fill { background: var(--c); }
   .gc-p .gc-val { color: var(--p); } .gc-p .gc-bar-fill { background: var(--p); }
@@ -153,7 +181,7 @@
   /* ENTRIES */
   .entries { display: flex; flex-direction: column; gap: 10px; }
   .entry-slot-label { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); padding: 4px 0 0; }
-  .entry { display: flex; gap: 4px; }
+  .entry { display: flex; gap: 4px; overflow: visible; }
   .entry-left { flex: 75; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 9px 14px; min-width: 0; }
   .entry-name-row { font-size: 12px; margin-bottom: 5px; display: flex; align-items: center; gap: 7px; color: var(--text); }
   .entry-qty { font-size: 9px; background: #2a2a2a; border-radius: 8px; padding: 2px 7px; color: var(--accent); font-weight: 700; }
@@ -161,12 +189,14 @@
   .comp-bars { display: flex; height: 5px; border-radius: 3px; overflow: hidden; gap: 1px; margin-bottom: 4px; }
   .comp-seg { height: 100%; border-radius: 1px; transition: width 0.4s ease; }
   .entry-kcal-small { font-size: 10px; color: var(--accent); }
-  .entry-right { position: relative; flex: 25; background: #141414; border: 1px solid var(--border); border-radius: 8px; padding: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .entry-right { position: relative; flex: 25; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
   .entry-bottom-row { display: flex; align-items: center; gap: 8px; margin-top: 2px; }
   .entry-macros-inline { display: flex; gap: 5px; font-size: 9px; }
   .entry-macros-inline .ec { color: var(--c); } .entry-macros-inline .ep { color: var(--p); } .entry-macros-inline .eg { color: var(--g); }
-  .entry-actions-box { display: flex; gap: 4px; border: 1px solid var(--border); border-radius: 8px; padding: 4px; background: var(--bg); }
   .entry-actions { display: flex; flex-direction: row; gap: 4px; width: 80%; }
+  .entry-actions-box { display: flex; gap: 4px; border: 1px solid var(--border); border-radius: 8px; padding: 4px; background: var(--bg); }
+  .entry-repeat-badge { position:absolute; top:-8px; right:-8px; background:var(--accent); color:#2a2a2a; font-size:9px; font-weight:700; border-radius:50%; width:18px; height:18px; display:flex; align-items:center; justify-content:center; line-height:1; }
+  html[data-theme="light"] .entry-repeat-badge { color:#ffffff; }
   .qty-btn { background: var(--border); border: none; color: var(--text); font-family: inherit; font-size: 17px; flex: 1; height: 28px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.15s; line-height: 1; }
   .qty-btn:hover { background: #333; }
   .del-x-btn { position: absolute; top: 0; right: 0; width: 26px; height: 26px; background: var(--border); border: none; border-left: 1px solid var(--border); border-bottom: 1px solid var(--border); border-radius: 0 8px 0 8px; color: var(--muted); font-size: 13px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: color 0.15s, background 0.15s; }
@@ -227,9 +257,9 @@
   .cat-panel-hint { font-size: 10px; color: var(--muted); }
 
   /* QUANTITY ENTRY SHEET (used when logging from search) */
-  .add-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 200; align-items: flex-end; justify-content: center; }
+  .add-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; align-items: center; justify-content: center; padding: 20px; }
   .add-overlay.open { display: flex; }
-  .add-sheet { background: #111; border-top: 1px solid var(--border); border-radius: 16px 16px 0 0; padding: 20px 16px 36px; width: 100%; max-width: 520px; display: flex; flex-direction: column; gap: 12px; }
+  .add-sheet { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 20px 16px 24px; width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 12px; }
   .add-sheet-title { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
   .add-sheet-foodname { font-size: 15px; font-weight: 700; color: var(--accent); margin-bottom: 2px; }
   .add-sheet input { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-family: inherit; font-size: 13px; padding: 10px 12px; width: 100%; outline: none; transition: border-color 0.15s; }
@@ -294,8 +324,7 @@
 <!-- HOME -->
 <div class="page active" id="page-home">
 
-  <div class="dates" id="dateTabs"></div>
-  <div class="dates-extra hidden" id="datesExtra"></div>
+  <div class="dates" id="dateTabs" style="max-width:200px;margin:0 auto"></div>
   <hr class="sep" style="margin:18px auto;width:70%">
   <div class="big-add-wrap">
     <div class="big-add-outer" id="bigAddOuter">
@@ -360,10 +389,10 @@
   </div>
   <div class="cat-panel" id="catPanel">
     <div style="display:flex;justify-content:flex-end">
-      <button id="catUnitG" onclick="setCatUnit('g')" style="background:var(--accent);color:#0f0f0f;border:1px solid var(--accent);border-radius:6px 0 0 6px;font-family:inherit;font-size:11px;font-weight:700;padding:5px 14px;cursor:pointer;transition:all 0.15s">grammi</button>
+      <button id="catUnitG" onclick="setCatUnit('g')" style="background:var(--accent);color:#0f0f0f;border:1px solid var(--accent);border-radius:6px 0 0 6px;font-family:inherit;font-size:11px;padding:5px 14px;cursor:pointer;transition:all 0.15s">grammi</button>
       <button id="catUnitMl" onclick="setCatUnit('ml')" style="background:none;border:1px solid var(--border);border-left:none;border-radius:0 6px 6px 0;font-family:inherit;font-size:11px;color:var(--muted);padding:5px 14px;cursor:pointer;transition:all 0.15s">millilitri</button>
     </div>
-    <input type="text" id="catName" placeholder="nome alimento"/>
+    <input type="text" id="catName" placeholder="nome alimento" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
     <div style="display:flex;flex-direction:column;gap:6px">
       <div style="display:flex;align-items:center;justify-content:space-between">
         <span class="cat-panel-hint" style="font-size:11px">kcal</span>
@@ -406,13 +435,8 @@
 
 <!-- REPORT -->
 <div class="page" id="page-report">
-  <div class="section-title">fino al giorno</div>
-  <div class="dates" id="reportDateTabs"></div>
-  <div class="dates-extra hidden" id="reportDatesExtra"></div>
-
-  <hr class="sep" style="margin:18px 0">
   <div class="report-period-row">
-    <button class="report-period-btn active" data-period="day" onclick="setReportPeriod('day')">giorno</button>
+    <button class="report-period-btn active" data-period="day" onclick="setReportPeriod('day')">oggi</button>
     <button class="report-period-btn" data-period="week" onclick="setReportPeriod('week')">settimana</button>
     <button class="report-period-btn" data-period="month" onclick="setReportPeriod('month')">mese</button>
     <button class="report-period-btn" data-period="quarter" onclick="setReportPeriod('quarter')">quarter</button>
@@ -439,8 +463,8 @@
 
 <!-- PROFILO -->
 <div class="page" id="page-profile">
-  <div style="text-align:center;padding:36px 0 20px">
-    <div style="font-family:'Poppins',sans-serif;font-size:22px;font-weight:600;color:var(--text)">
+  <div style="display:flex;justify-content:center;padding:36px 0 20px">
+    <div style="font-family:'Poppins',sans-serif;font-size:22px;font-weight:600;color:var(--text);width:fit-content">
       Ciao, <input class="pf-input" id="pf-nome" type="text" placeholder="come ti chiami?" oninput="saveProfile();this.style.width=(this.value.length||16)+'ch'" style="font-family:'Poppins',sans-serif;font-size:22px;font-weight:600;color:var(--accent);width:16ch;display:inline;text-align:left"/>
     </div>
   </div>
@@ -515,6 +539,7 @@
     </div>
   </div>
 
+
   <div class="sep"></div>
   <div class="data-row">
     <label class="data-btn" style="cursor:pointer">
@@ -523,8 +548,15 @@
     </label>
     <button class="data-btn" onclick="exportData()">↗ esporta</button>
   </div>
+  <div style="display:flex;justify-content:center;margin:10px 0 4px">
+    <div style="display:flex;border:1px solid var(--border);border-radius:6px;overflow:hidden">
+      <button id="btn-light" onclick="setTheme('light')" style="background:none;border:none;font-size:13px;padding:4px 14px;cursor:pointer;color:var(--muted);transition:all 0.15s">☀︎</button>
+      <div style="width:1px;background:var(--border)"></div>
+      <button id="btn-dark" onclick="setTheme('dark')" style="background:none;border:none;font-size:13px;padding:4px 14px;cursor:pointer;color:var(--muted);transition:all 0.15s">☼</button>
+    </div>
+  </div>
   <div class="footer" style="margin-top:8px">
-    <div style="color:var(--muted);font-size:11px;margin-bottom:4px">Logger v1.6</div>
+    <div style="color:var(--muted);font-size:11px;margin-bottom:4px">Logger v1.7</div>
     <a href="https://github.com/cloveloper" target="_blank">made with ♡ by clovis</a>
   </div>
 </div>
@@ -558,6 +590,32 @@
       <button class="btn-primary" style="flex:1" onclick="confirmQtyLog()">aggiungi</button>
       <button class="btn-secondary" onclick="closeQtySheetDirect()">annulla</button>
     </div>
+  </div>
+</div>
+
+<!-- FOOD INFO MODAL -->
+<div class="add-overlay" id="foodInfoOverlay" onclick="closeFoodInfo(event)">
+  <div class="add-sheet" style="gap:16px">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+      <div style="min-width:0">
+        <div class="add-sheet-title">alimento</div>
+        <div class="add-sheet-foodname" id="fi-name" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">—</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+        <span style="font-size:11px;color:var(--muted)">grammi</span>
+        <input id="fi-grams" type="number" min="0" oninput="updateFoodInfoStats(this.value)"
+          style="background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--accent);font-family:inherit;font-size:16px;font-weight:700;width:76px;height:40px;outline:none;padding:0 10px;text-align:center"/>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <div class="add-sheet-title">valori loggati</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px" id="fi-logged"></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <div class="add-sheet-title">valori per 100g</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px" id="fi-per100"></div>
+    </div>
+    <button class="btn-secondary" onclick="document.getElementById('foodInfoOverlay').classList.remove('open')">chiudi</button>
   </div>
 </div>
 
@@ -645,7 +703,8 @@
     document.getElementById('page-'+name).classList.add('active');
     document.getElementById('nav-'+name).classList.add('active');
     if (name==='search') renderFoodList();
-    if (name==='report') { renderReportTabs(); renderReport(); }
+    if (name==='profile') setTimeout(()=>applyTheme(currentTheme), 0);
+    if (name==='report') { renderReport(); }
   }
   function openSearchFromHome() {
     switchPage('search');
@@ -655,55 +714,62 @@
   // ══ RENDER HOME ══
   function renderTabs() {
     const keys = getTabKeys();
-    const visible = keys.slice(0,3);
-    const extra = keys.slice(3);
-
     const wrap=document.getElementById('dateTabs');
     wrap.innerHTML='';
-    visible.forEach(k=>{
+    keys.forEach(k=>{
       const btn=document.createElement('button');
       btn.className='date-tab'+(k===active?' active':'');
       btn.textContent=dateLabel(k);
       btn.onclick=()=>{active=k;render();};
       wrap.appendChild(btn);
     });
-    if (extra.length) {
-      const more=document.createElement('button');
-      more.className='date-more-btn';
-      more.textContent= extraDatesOpen ? '<' : '>';
-      more.onclick=()=>{ extraDatesOpen=!extraDatesOpen; renderTabs(); };
-      wrap.appendChild(more);
-    }
-
-    const extraWrap=document.getElementById('datesExtra');
-    extraWrap.innerHTML='';
-    extraWrap.classList.toggle('hidden', !extraDatesOpen || !extra.length);
-    extra.forEach(k=>{
-      const btn=document.createElement('button');
-      btn.className='date-tab'+(k===active?' active':'');
-      btn.textContent=dateLabel(k);
-      btn.onclick=()=>{active=k;render();};
-      extraWrap.appendChild(btn);
-    });
   }
+
+  const BAR_COLORS = {
+    kcal: { base:'#add0f0', dark:'#6a9ab8' },
+    c:    { base:'#f9c46a', dark:'#c8903a' },
+    p:    { base:'#b89fc8', dark:'#7a5a98' },
+    g:    { base:'#f99585', dark:'#c86050' },
+  };
 
   function renderGoals(t) {
     [{key:'kcal',val:t.kcal,max:goals.kcal,unit:'kcal'},
      {key:'c',  val:t.c,   max:goals.c,   unit:'g'},
      {key:'p',  val:t.p,   max:goals.p,   unit:'g'},
      {key:'g',  val:t.g,   max:goals.g,   unit:'g'}].forEach(({key,val,max,unit})=>{
-      const p=pct(val,max),rem=max-val;
+      const rem=max-val;
       document.getElementById(`gc-${key}-val`).textContent=`${Math.round(val)} / ${max}${key==='kcal'?'':unit}`;
-      document.getElementById(`gc-${key}-rem`).textContent=rem>=0?`${Math.round(rem)}${unit} rimanenti`:`+${Math.round(-rem)}${unit} over`;
+      document.getElementById(`gc-${key}-rem`).textContent=rem>=0?`${Math.round(rem)}${unit} rimanenti`:`${Math.round(-rem)}${unit} oltre`;
       const bar=document.getElementById(`gc-${key}-bar`);
-      bar.style.width=p+'%'; bar.classList.toggle('over',val>max);
+      const {base,dark}=BAR_COLORS[key];
+      if (val<=max) {
+        bar.style.width=pct(val,max)+'%';
+        bar.style.background=base;
+      } else {
+        // full bar: normal color up to goal, darker shade for excess
+        const normalPct=Math.round(max/val*100);
+        const excessPct=Math.min(Math.round((val-max)/max*100),100);
+        const excessStop=Math.min(normalPct+excessPct,100);
+        bar.style.width='100%';
+        bar.style.background=`linear-gradient(to right, ${dark} 0% ${excessPct}%, ${base} ${excessPct}% 100%)`;
+      }
+      bar.classList.remove('over');
       document.getElementById(`card-${key}`).classList.toggle('complete',val>=max);
     });
     const wml=water[active]||0,wmax=goals.water,wrem=wmax-wml;
-    document.getElementById('gc-water-val').textContent=`${(wml/1000).toFixed(1)} / ${(wmax/1000).toFixed(1)}L`;
+    document.getElementById('gc-water-val').textContent=`${(wml/1000).toFixed(1)}L`;
     document.getElementById('gc-water-rem').textContent=wrem>=0?`${(wrem/1000).toFixed(1)}L rimanenti`:`+${(-wrem/1000).toFixed(1)}L over`;
     const wb=document.getElementById('gc-water-bar');
-    wb.style.width=pct(wml,wmax)+'%'; wb.classList.toggle('over',wml>wmax);
+    if (wml<=wmax) {
+      wb.style.width=pct(wml,wmax)+'%';
+      wb.style.background='var(--water)';
+    } else {
+      const normalPct=Math.round(wmax/wml*100);
+      const excessStop=Math.min(normalPct+Math.round((wml-wmax)/wmax*100),100);
+      wb.style.width='100%';
+      wb.style.background=`linear-gradient(to right, #a09890 0% ${Math.round((wml-wmax)/wml*100)}%, var(--water) ${Math.round((wml-wmax)/wml*100)}% 100%)`;
+    }
+    wb.classList.remove('over');
     document.getElementById('card-water').classList.toggle('complete',wml>=wmax);
     // update big-add kcal progress ring
     const kcalRatio = t.kcal / goals.kcal;
@@ -712,12 +778,10 @@
       let bg;
       if (kcalRatio <= 1) {
         const pct = (kcalRatio * 100).toFixed(1) + '%';
-        const pctBlend = Math.max(0, kcalRatio * 100 - 18).toFixed(1) + '%';
-        bg = `conic-gradient(var(--accent) 0% ${pctBlend}, #d8eefa ${pct}, var(--border) ${pct} 100%)`;
+        bg = `conic-gradient(var(--accent) 0% ${pct}, var(--border) ${pct} 100%)`;
       } else {
         const excessPct = Math.min((kcalRatio - 1) * 100, 100).toFixed(1) + '%';
-        const excessBlend = Math.max(0, (kcalRatio - 1) * 100 - 8).toFixed(1) + '%';
-        bg = `conic-gradient(var(--danger) 0% ${excessBlend}, #f9a46a ${excessPct}, var(--accent) ${excessPct} 100%)`;
+        bg = `conic-gradient(#6a9ab8 0% ${excessPct}, var(--accent) ${excessPct} 100%)`;
       }
       outer.style.background = bg;
     }
@@ -756,8 +820,9 @@
     entries.forEach((e,i)=>{
       const slot=slotOf(e.hour);
       if (!slotMap[slot]) slotMap[slot]=[];
-      let grp=slotMap[slot].find(g=>g.name===e.name);
-      if (!grp) { grp={name:e.name, indices:[]}; slotMap[slot].push(grp); }
+      const key = e.name+'__'+e.grams;
+      let grp=slotMap[slot].find(g=>g.key===key);
+      if (!grp) { grp={key, name:e.name, indices:[]}; slotMap[slot].push(grp); }
       grp.indices.push(i);
     });
 
@@ -792,20 +857,18 @@
         const div=document.createElement('div');
         div.className='entry';
         div.innerHTML=`
-          <div class="entry-left">
-            <div class="entry-name-row">
-              ${grp.name}
-              ${repeatCount>1?`<span class="entry-qty">×${repeatCount}</span>`:''}
-              <span class="entry-grams">${tGrams}${unit}</span>
+          <div class="entry-left" style="position:relative;cursor:pointer" onclick="openFoodInfo('${grp.name}',${items[0].grams||0},'${unit}',${items[0].kcal},${items[0].c},${items[0].p},${items[0].g},[${grp.indices}])">
+            <div class="entry-name-row" style="justify-content:space-between">
+              <div style="display:flex;align-items:center;gap:7px">
+                ${grp.name}
+                <span class="entry-grams">${tGrams}${unit}</span>
+              </div>
+              <span class="entry-kcal-small">${tK}<span style="font-size:8px;color:var(--muted)"> kcal</span></span>
             </div>
             ${compBars(tC,tP,tG)}
-            <div class="entry-bottom-row">
-              <span class="entry-kcal-small">${tK}<span style="font-size:8px;color:var(--muted)"> kcal</span></span>
-              <span style="color:var(--muted);font-size:9px">·</span>
-              <span class="entry-macros-inline"><span class="ec">C${tC}</span><span class="ep">P${tP}</span><span class="eg">G${tG}</span></span>
-            </div>
           </div>
-          <div class="entry-right">
+          <div class="entry-right" style="position:relative">
+            ${repeatCount>1?`<span class="entry-repeat-badge">${repeatCount}</span>`:''}
             <div class="entry-actions">
               <button class="qty-btn" onclick="removeEntryInstance(${lastIdx})">−</button>
               <button class="qty-btn" onclick="duplicateEntry(${lastIdx})">+</button>
@@ -924,7 +987,39 @@
     const p100=parseFloat(document.getElementById('catP').value)||0;
     const g100=parseFloat(document.getElementById('catG').value)||0;
     const defaultG=parseFloat(document.getElementById('catDefaultG').value)||100;
-    if (!name||!kcal100) return;
+    if (!name||!kcal100||!document.getElementById('catC').value||!document.getElementById('catP').value||!document.getElementById('catG').value) {
+      // check duplicate first, even if other fields are empty
+      if (name) {
+        const dup=catalog.findIndex((it,i)=>it.name.toLowerCase()===name.toLowerCase()&&i!==catEditIndex);
+        if (dup!==-1) {
+          const inp=document.getElementById('catName');
+          inp.style.borderColor='var(--danger)'; inp.value=''; inp.placeholder='nome già esistente';
+          setTimeout(()=>{ inp.style.borderColor=''; inp.placeholder='nome alimento'; },2000);
+          return;
+        }
+      }
+      const flash=(id,msg)=>{
+        const el=document.getElementById(id);
+        el.style.borderColor='var(--danger)';
+        const prev=el.placeholder; el.value=''; el.placeholder=msg;
+        setTimeout(()=>{ el.style.borderColor=''; el.placeholder=prev; },2000);
+      };
+      if (!name) flash('catName','campo obbligatorio');
+      if (!kcal100) flash('catKcal','obbligatorio');
+      if (!document.getElementById('catC').value) flash('catC','obbligatorio');
+      if (!document.getElementById('catP').value) flash('catP','obbligatorio');
+      if (!document.getElementById('catG').value) flash('catG','obbligatorio');
+      return;
+    }
+    const duplicate = catalog.findIndex((it,i)=>it.name.toLowerCase()===name.toLowerCase() && i!==catEditIndex);
+    if (duplicate!==-1) {
+      const inp=document.getElementById('catName');
+      inp.style.borderColor='var(--danger)';
+      inp.placeholder='nome già esistente';
+      inp.value='';
+      setTimeout(()=>{ inp.style.borderColor=''; inp.placeholder='nome alimento'; },2000);
+      return;
+    }
     const newItem = { name, defaultG, unit: catUnit, kcal:kcal100/100, c:c100/100, p:p100/100, g:g100/100 };
     if (catEditIndex!==null) {
       catalog[catEditIndex] = newItem;
@@ -1016,9 +1111,18 @@
     document.getElementById('qtyUnitLabel').textContent = unit;
     document.getElementById('qtySetDefault').checked = false;
     updateQtyPreview();
+    updateDefaultCheckboxVisibility();
     document.getElementById('qtyOverlay').classList.add('open');
     setTimeout(()=>document.getElementById('qtyAmount').focus(),100);
   }
+  function updateDefaultCheckboxVisibility() {
+    const item = catalog[qtyContext.idx];
+    const grams = parseFloat(document.getElementById('qtyAmount').value)||0;
+    const hasDefault = item.defaultG != null && item.defaultG > 0;
+    const matchesDefault = hasDefault && grams === item.defaultG;
+    document.querySelector('.default-checkbox-row').style.display = matchesDefault ? 'none' : '';
+  }
+
   function updateQtyPreview() {
     const item = catalog[qtyContext.idx];
     const grams = parseFloat(document.getElementById('qtyAmount').value)||0;
@@ -1028,7 +1132,7 @@
     const g = Math.round(item.g*grams);
     document.getElementById('qtyPreview').textContent = `${k} kcal · C${c} P${p} G${g}`;
   }
-  document.addEventListener('input', e => { if (e.target.id==='qtyAmount') updateQtyPreview(); });
+  document.addEventListener('input', e => { if (e.target.id==='qtyAmount') { updateQtyPreview(); updateDefaultCheckboxVisibility(); } });
 
   function confirmQtyLog() {
     const item = catalog[qtyContext.idx];
@@ -1063,8 +1167,68 @@
   function saveGoalEdit(key) { const v=parseFloat(document.getElementById(`inp-${key}`).value); if(v>0){goals[key]=v;saveGoals();} closeGoalEdit(key); render(); }
 
   // ══ PROFILE ══
+  let currentTheme = localStorage.getItem('caltheme') || 'dark';
+
+  function applyTheme(t) {
+    document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : '');
+    const btnLight = document.getElementById('btn-light');
+    const btnDark  = document.getElementById('btn-dark');
+    if (!btnLight || !btnDark) return;
+    const active = `background:var(--border);color:var(--text);font-weight:600;`;
+    const inactive = 'background:none;color:var(--muted);font-weight:400;';
+    btnLight.style.cssText = `border:none;font-size:13px;padding:4px 14px;cursor:pointer;transition:all 0.15s;${t==='light'?active:inactive}`;
+    btnDark.style.cssText  = `border:none;font-size:13px;padding:4px 14px;cursor:pointer;transition:all 0.15s;${t==='dark'?active:inactive}`;
+  }
+  function setTheme(t) {
+    currentTheme = t;
+    localStorage.setItem('caltheme', t);
+    applyTheme(t);
+  }
+
+  let _fiCtx = null;
+
+  function openFoodInfo(name, grams, unit, kcalPg, cPg, pPg, gPg, indices) {
+    _fiCtx = { kcalPg, cPg, pPg, gPg, unit, indices };
+    const multi = indices && indices.length > 1;
+    document.getElementById('fi-name').textContent = name;
+    const gramsInput = document.getElementById('fi-grams');
+    gramsInput.disabled = multi;
+    gramsInput.style.opacity = multi ? '0.4' : '1';
+    gramsInput.style.cursor = multi ? 'not-allowed' : '';
+    document.getElementById('fi-grams').value = grams;
+    updateFoodInfoStats(grams);
+    document.getElementById('foodInfoOverlay').classList.add('open');
+    setTimeout(()=>document.getElementById('fi-grams').focus(), 100);
+  }
+
+  function updateFoodInfoStats(grams) {
+    if (!_fiCtx) return;
+    const {kcalPg, cPg, pPg, gPg, unit, indices} = _fiCtx;
+    const g = parseFloat(grams)||0;
+    const tK=Math.round(kcalPg*g), tC=Math.round(cPg*g), tP=Math.round(pPg*g), tG=Math.round(gPg*g);
+    const mkStat=(label,val,color,small=false)=>`<div style="background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:${small?'6px 10px':'8px 12px'}">
+      <div style="font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:2px">${label}</div>
+      <div style="font-size:${small?'10px':'15px'};font-weight:${small?'500':'700'};color:${small?'var(--muted)':color}">${val}</div>
+    </div>`;
+    document.getElementById('fi-logged').innerHTML =
+      mkStat('kcal', tK, 'var(--accent)') +
+      mkStat('carb', tC+'g', 'var(--c)') +
+      mkStat('prot', tP+'g', 'var(--p)') +
+      mkStat('grassi', tG+'g', 'var(--g)');
+    document.getElementById('fi-per100').innerHTML =
+      mkStat('kcal', Math.round(kcalPg*100), 'var(--accent)', true) +
+      mkStat('carb', Math.round(cPg*100)+'g', 'var(--c)', true) +
+      mkStat('prot', Math.round(pPg*100)+'g', 'var(--p)', true) +
+      mkStat('grassi', Math.round(gPg*100)+'g', 'var(--g)', true);
+    if (indices && g > 0) {
+      indices.forEach(idx => { if (log[active][idx]) log[active][idx].grams = g; });
+      saveLog(); render();
+    }
+  }
+  function closeFoodInfo(e) {
+    if (e.target===document.getElementById('foodInfoOverlay')) document.getElementById('foodInfoOverlay').classList.remove('open');
+  }
   function saveGoalsFromProfile() {
-    const kcal = parseFloat(document.getElementById('goal-kcal').value);
     const c    = parseFloat(document.getElementById('goal-c').value);
     const p    = parseFloat(document.getElementById('goal-p').value);
     const g    = parseFloat(document.getElementById('goal-g').value);
@@ -1125,35 +1289,14 @@
   // ══ REPORTS ══
   function renderReportTabs() {
     const keys = getTabKeys();
-    const visible = keys.slice(0,3);
-    const extra = keys.slice(3);
-
     const wrap=document.getElementById('reportDateTabs');
     wrap.innerHTML='';
-    visible.forEach(k=>{
+    keys.forEach(k=>{
       const btn=document.createElement('button');
       btn.className='date-tab'+(k===reportActive?' active':'');
       btn.textContent=dateLabel(k);
       btn.onclick=()=>selectReportDate(k);
       wrap.appendChild(btn);
-    });
-    if (extra.length) {
-      const more=document.createElement('button');
-      more.className='date-more-btn';
-      more.textContent= reportExtraDatesOpen ? '<' : '>';
-      more.onclick=()=>{ reportExtraDatesOpen=!reportExtraDatesOpen; renderReportTabs(); };
-      wrap.appendChild(more);
-    }
-
-    const extraWrap=document.getElementById('reportDatesExtra');
-    extraWrap.innerHTML='';
-    extraWrap.classList.toggle('hidden', !reportExtraDatesOpen || !extra.length);
-    extra.forEach(k=>{
-      const btn=document.createElement('button');
-      btn.className='date-tab'+(k===reportActive?' active':'');
-      btn.textContent=dateLabel(k);
-      btn.onclick=()=>selectReportDate(k);
-      extraWrap.appendChild(btn);
     });
   }
   function selectReportDate(k) {
@@ -1176,7 +1319,7 @@
   function renderReport() {
     const days = getPeriodDays(reportPeriod);
     let totalK=0,totalC=0,totalP=0,totalG=0,loggedDays=0,totalWater=0,waterDays=0;
-    const anchor = new Date(reportActive+'T12:00:00');
+    const anchor = new Date(todayKey()+'T12:00:00');
     for (let i=0;i<days;i++) {
       const d=new Date(anchor); d.setDate(d.getDate()-i);
       const k=dateKey(d);
@@ -1213,7 +1356,7 @@
     svg.innerHTML = '';
     legend.innerHTML = '';
     if (!segments.length) {
-      svg.innerHTML = `<circle cx="90" cy="90" r="70" fill="none" stroke="#2a2a2a" stroke-width="20"/>`;
+      svg.innerHTML = `<circle cx="90" cy="90" r="70" fill="none" stroke="${document.documentElement.getAttribute('data-theme')==='light'?'#d1d1d6':'#2a2a2a'}" stroke-width="20"/>`;
       legend.innerHTML = '<div class="empty">nessun dato per questo periodo</div>';
       return;
     }
@@ -1235,9 +1378,9 @@
       const li = document.createElement('div');
       li.className = 'report-legend-item';
       const overGoal = seg.goalFrac != null && frac > seg.goalFrac;
-      li.innerHTML = `<span class="report-legend-dot" style="background:${overGoal?'#f96a6a':seg.colorHex}"></span>
-        <span style="color:${overGoal?'var(--danger)':'inherit'}">${seg.label}</span>
-        <span class="report-legend-val" style="color:${overGoal?'var(--danger)':'var(--muted)'}">${Math.round(frac*100)}%</span>`;
+      li.innerHTML = `<span class="report-legend-dot" style="background:${seg.colorHex}"></span>
+        <span>${seg.label}</span>
+        <span class="report-legend-val" style="color:${overGoal?'var(--danger)':'var(--muted)'};font-weight:${overGoal?'700':'400'}">${Math.round(frac*100)}%</span>`;
       legend.appendChild(li);
     });
 
@@ -1273,6 +1416,7 @@
 
   loadProfile();
   loadGoalsToProfile();
+  applyTheme(currentTheme);
   render();
   renderFoodList();
 
