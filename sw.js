@@ -1,4 +1,4 @@
-const CACHE = 'logger-v1';
+const CACHE = 'logger-20250623';
 const ASSETS = ['/Logger/', '/Logger/index.html', '/Logger/icon-192.png', '/Logger/icon-512.png'];
 
 self.addEventListener('install', e => {
@@ -15,6 +15,6 @@ self.addEventListener('activate', e => {
 
 self.addEventListener('fetch', e => {
   e.respondWith(
-    caches.match(e.request).then(cached => cached || fetch(e.request))
+    fetch(e.request).catch(() => caches.match(e.request))
   );
 });
