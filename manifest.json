@@ -2,7 +2,7 @@
   "name": "Logger",
   "short_name": "Logger",
   "description": "Food & nutrition tracker",
-  "start_url": "/",
+  "start_url": "/Logger/",
   "display": "standalone",
   "background_color": "#0f0f0f",
   "theme_color": "#0f0f0f",

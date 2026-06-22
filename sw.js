@@ -1,5 +1,5 @@
 const CACHE = 'logger-v1';
-const ASSETS = ['/', '/index.html', '/icon-192.png', '/icon-512.png'];
+const ASSETS = ['/Logger/', '/Logger/index.html', '/Logger/icon-192.png', '/Logger/icon-512.png'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)));
