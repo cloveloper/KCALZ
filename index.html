@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>Logger</title>
-<link rel="icon" href="icon-192.png" type="image/png">
+<link rel="icon" href="icon-transparent.png" type="image/png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-110 -110 220 220'><rect x='-110' y='-110' width='220' height='220' fill='%230f0f0f'/><path d='M0,0 C-6,-2 -48,2 -48,-38 C-48,-74 -22,-89 0,-74 C22,-89 48,-74 48,-38 C48,2 6,-2 0,0 Z' fill='%23add0f0' opacity='0.9' transform='translate(0,-6)'/><path d='M0,0 C-6,-2 -48,2 -48,-38 C-48,-74 -22,-89 0,-74 C22,-89 48,-74 48,-38 C48,2 6,-2 0,0 Z' fill='%23add0f0' opacity='0.9' transform='rotate(180) translate(0,-6)'/><path d='M0,0 C-6,-2 -48,2 -48,-44 C-48,-82 -22,-98 0,-82 C22,-98 48,-82 48,-44 C48,2 6,-2 0,0 Z' fill='%23add0f0' opacity='0.9' transform='rotate(270) translate(0,-6)'/><path d='M0,0 C-6,-2 -48,2 -48,-44 C-48,-82 -22,-98 0,-82 C22,-98 48,-82 48,-44 C48,2 6,-2 0,0 Z' fill='%23add0f0' opacity='0.9' transform='rotate(90) translate(0,-6)'/></svg>" type="image/svg+xml">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0f0f0f">
@@ -27,17 +27,19 @@
     --c: #f9c46a;
     --p: #b89fc8;
     --g: #f99585;
-    --water: #d4cfc8;
-    --green-grad: linear-gradient(135deg, #0f2a0f, #123512);
+    --water: #64d2b4;
+    --water-text: #a8e8d0;
+    --green-grad: linear-gradient(135deg, #1a4a3a, #1e5a46);
     --tab-h: 80px;
   }
   html[data-theme="light"] {
+    --water-text: #20a880;
     --bg: #f2f2f7;
     --surface: #ffffff;
     --border: #d1d1d6;
     --text: #6c6c70;
     --muted: #aeaeb2;
-    --green-grad: linear-gradient(135deg, #d4f5d4, #c2ecc2);
+    --green-grad: linear-gradient(135deg, #c8f5e8, #a8ecd4);
   }
   html[data-theme="light"] .big-add-btn:hover { background: #e5e5ea; }
   html[data-theme="light"] .nav-tab.active { background: #e5e5ea; }
@@ -182,12 +184,12 @@
   .goal-card.gc-c.complete   { background: linear-gradient(135deg, #504020, #5a4a22); border-color: #a88035; }
   .goal-card.gc-p.complete   { background: linear-gradient(135deg, #3e3050, #48385e); border-color: #8870a8; }
   .goal-card.gc-g.complete   { background: linear-gradient(135deg, #503030, #5e3835); border-color: #a86060; }
-  .goal-card.gc-water.complete { background: var(--green-grad); border-color: #2d6b2d; }
+  .goal-card.gc-water.complete { background: var(--green-grad); border-color: #64d2b4; }
   html[data-theme="light"] .goal-card.gc-kcal.complete { background: linear-gradient(135deg, #daeef9, #c8e4f5); border-color: #8ab8d8; }
   html[data-theme="light"] .goal-card.gc-c.complete   { background: linear-gradient(135deg, #fdf3d8, #faeac0); border-color: #d4a840; }
   html[data-theme="light"] .goal-card.gc-p.complete   { background: linear-gradient(135deg, #f0e8f8, #e4d8f0); border-color: #9878b8; }
   html[data-theme="light"] .goal-card.gc-g.complete   { background: linear-gradient(135deg, #fde8e4, #f8d8d0); border-color: #d07868; }
-  html[data-theme="light"] .goal-card.gc-water.complete { background: var(--green-grad); border-color: #5aaa5a; }
+  html[data-theme="light"] .goal-card.gc-water.complete { background: var(--green-grad); border-color: #30b890; }
   .gc-label { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; padding-right: 20px; }
   .gc-val { font-size: 17px; font-weight: 700; }
   .gc-sub { font-size: 10px; color: var(--muted); margin-top: 2px; }
@@ -197,7 +199,14 @@
   .gc-c .gc-val { color: var(--c); } .gc-c .gc-bar-fill { background: var(--c); }
   .gc-p .gc-val { color: var(--p); } .gc-p .gc-bar-fill { background: var(--p); }
   .gc-g .gc-val { color: var(--g); } .gc-g .gc-bar-fill { background: var(--g); }
-  .gc-water .gc-val { color: var(--water); } .gc-water .gc-bar-fill { background: var(--water); }
+  .gc-water .gc-val { color: var(--water-text); } .gc-water .gc-bar-fill { background: var(--water-text); }
+  .gc-kcal .gc-label { color: var(--accent); opacity: 0.7; }
+  .gc-c .gc-label   { color: var(--c); opacity: 0.7; }
+  .gc-p .gc-label   { color: var(--p); opacity: 0.7; }
+  .gc-g .gc-label   { color: var(--g); opacity: 0.7; }
+  .gc-water .gc-label { color: var(--water-text); }
+  .gc-water .water-tap-btn { color: var(--water-text); border-color: var(--water-text); opacity: 0.7; }
+  .gc-water .water-tap-btn:hover { opacity: 1; }
   .gc-edit-btn { position: absolute; top: 8px; right: 8px; background: none; border: none; color: var(--muted); font-size: 12px; cursor: pointer; padding: 0; transition: color 0.15s; }
   .gc-edit-btn:hover { color: var(--accent); }
   .gc-edit-overlay { display: none; position: absolute; inset: 0; background: #111; border-radius: 6px; padding: 10px; flex-direction: column; gap: 6px; z-index: 2; }
@@ -207,7 +216,7 @@
   .gc-edit-row { display: flex; gap: 6px; margin-top: 2px; }
   .water-controls { display: flex; justify-content: space-between; margin-top: 8px; gap: 6px; }
   .water-tap-btn { flex: 1; background: none; border: 1px solid var(--border); border-radius: 4px; color: var(--muted); font-family: inherit; font-size: 11px; padding: 4px 0; cursor: pointer; transition: all 0.15s; text-align: center; }
-  .water-tap-btn:hover { border-color: var(--water); color: var(--water); }
+  .water-tap-btn:hover { border-color: var(--water-text); color: var(--water-text); }
 
   /* ENTRIES */
   .entries { display: flex; flex-direction: column; gap: 10px; }
@@ -505,10 +514,8 @@
 
 <!-- PROFILO -->
 <div class="page" id="page-profile">
-  <div style="display:flex;justify-content:center;padding:36px 0 20px">
-    <div style="font-family:'Poppins',sans-serif;font-size:22px;font-weight:600;color:var(--text);width:fit-content">
-      Ciao, <input class="pf-input" id="pf-nome" type="text" placeholder="come ti chiami?" oninput="saveProfile();this.style.width=(this.value.length||this.placeholder.length)+'ch'" style="font-family:'Poppins',sans-serif;font-size:22px;font-weight:600;color:var(--accent);width:15ch;display:inline;text-align:left;padding:0"/>
-    </div>
+  <div style="text-align:center;padding:36px 0 20px;font-family:'Poppins',sans-serif;font-size:22px;font-weight:600;color:var(--text)">
+    Ciao, <input class="pf-input" id="pf-nome" type="text" placeholder="come ti chiami?" oninput="saveProfile();this.style.width=(this.value.length||this.placeholder.length)+'ch'" style="font-family:'Poppins',sans-serif;font-size:22px;font-weight:600;color:var(--accent);width:15ch;display:inline;text-align:left;padding:0"/>
   </div>
 
   <div class="profile-fields" style="margin-bottom:10px">
@@ -590,6 +597,8 @@
     </label>
     <button class="data-btn" onclick="exportData()">↗ esporta</button>
   </div>
+  <button onclick="askRestoreCatalog()" style="width:100%;background:none;border:1px solid var(--border);border-radius:6px;color:var(--muted);font-family:inherit;font-size:11px;padding:9px 8px;cursor:pointer;margin-bottom:8px;transition:all 0.15s" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">↺ ripristina catalogo predefinito</button>
+
   <div style="display:flex;justify-content:center;margin:10px 0 4px">
     <div style="display:flex;border:1px solid var(--border);border-radius:6px;overflow:hidden">
       <button id="btn-light" onclick="setTheme('light')" style="background:none;border:none;font-size:13px;padding:4px 14px;cursor:pointer;color:var(--muted);transition:all 0.15s">☀︎</button>
@@ -661,6 +670,18 @@
   </div>
 </div>
 
+<!-- CONFIRM RESTORE CATALOG -->
+<div class="confirm-overlay" id="restoreOverlay">
+  <div class="confirm-box">
+    <div class="confirm-title">Ripristina catalogo?</div>
+    <div class="confirm-sub">Gli alimenti predefiniti che hai rimosso verranno riaggiunti.<br>I tuoi alimenti personalizzati e tutti i log rimarranno intatti.</div>
+    <div class="confirm-row">
+      <button class="btn-primary" onclick="confirmRestoreCatalog()">ripristina</button>
+      <button class="btn-secondary" onclick="document.getElementById('restoreOverlay').classList.remove('open')">annulla</button>
+    </div>
+  </div>
+</div>
+
 <!-- CONFIRM DELETE -->
 <div class="confirm-overlay" id="confirmOverlay">
   <div class="confirm-box">
@@ -689,6 +710,7 @@
 
   // ══ STATE ══
   let log     = JSON.parse(localStorage.getItem('callog')    ||'{}');
+  let deletedBuiltins = JSON.parse(localStorage.getItem('caldeletedbuiltins') || '[]');
   let goals   = JSON.parse(localStorage.getItem('calgoals')  ||'null')||{kcal:1900,c:200,p:135,g:50,water:2000};
   let catalog = JSON.parse(localStorage.getItem('calcatalog')||'null');
   let water   = JSON.parse(localStorage.getItem('calwater')  ||'{}');
@@ -712,9 +734,10 @@
     catalog = [...BUILTIN_DB];
     saveCatalog();
   } else {
-    // merge: add builtins not already in catalog (by name, case-insensitive)
+    // merge: add builtins not already in catalog and not explicitly deleted by user
     const existingNames = new Set(catalog.map(it => it.name.toLowerCase()));
-    const toAdd = BUILTIN_DB.filter(it => !existingNames.has(it.name.toLowerCase()));
+    const blacklist = new Set(deletedBuiltins.map(n => n.toLowerCase()));
+    const toAdd = BUILTIN_DB.filter(it => !existingNames.has(it.name.toLowerCase()) && !blacklist.has(it.name.toLowerCase()));
     if (toAdd.length > 0) {
       catalog = [...catalog, ...toAdd];
       saveCatalog();
@@ -725,6 +748,7 @@
   saveLog();
 
   function saveLog()     { localStorage.setItem('callog',    JSON.stringify(log)); }
+  function saveDeletedBuiltins() { localStorage.setItem('caldeletedbuiltins', JSON.stringify(deletedBuiltins)); }
   function saveCatalog() { localStorage.setItem('calcatalog',JSON.stringify(catalog)); }
   function saveGoals()   { localStorage.setItem('calgoals',  JSON.stringify(goals)); }
   function saveWater()   { localStorage.setItem('calwater',  JSON.stringify(water)); }
@@ -786,6 +810,37 @@
     g:    { base:'#f99585', dark:'#c86050' },
   };
 
+  const CARD_BG = {
+    kcal:  { d1:'37,69,96',   d2:'42,80,110',  l1:'218,238,249', l2:'200,228,245' },
+    c:     { d1:'80,64,32',   d2:'90,74,34',   l1:'253,243,216', l2:'250,234,192' },
+    p:     { d1:'62,48,80',   d2:'72,56,94',   l1:'240,232,248', l2:'228,216,240' },
+    g:     { d1:'80,48,48',   d2:'94,56,53',   l1:'253,232,228', l2:'248,216,208' },
+  };
+
+  function applyCardGradient(key, ratio) {
+    const card = document.getElementById(`card-${key}`);
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    const c = CARD_BG[key];
+    const p = Math.min(ratio, 1);
+    const col1 = isLight ? c.l1 : c.d1;
+    const col2 = isLight ? c.l2 : c.d2;
+    const minA = 0.15;
+    const a = p <= 0 ? minA : Math.round((minA + p * (isLight ? 0.84 : 0.79)) * 100) / 100;
+    if (p <= 0) {
+      card.style.background = `linear-gradient(135deg, rgba(${col1},${minA}), rgba(${col2},${minA}))`;
+      card.style.borderColor = '';
+      return;
+    }
+    card.style.background = `linear-gradient(135deg, rgba(${col1},${a}), rgba(${col2},${a}))`;
+    // border: interpolate from var(--border) to target
+    if (p >= 1) {
+      card.classList.add('complete');
+    } else {
+      card.classList.remove('complete');
+      card.style.borderColor = `rgba(${col1}, ${Math.min(p * 1.5, 0.6)})`;
+    }
+  }
+
   function renderGoals(t) {
     [{key:'kcal',val:t.kcal,max:goals.kcal,unit:'kcal'},
      {key:'c',  val:t.c,   max:goals.c,   unit:'g'},
@@ -800,15 +855,13 @@
         bar.style.width=pct(val,max)+'%';
         bar.style.background=base;
       } else {
-        // full bar: normal color up to goal, darker shade for excess
         const normalPct=Math.round(max/val*100);
         const excessPct=Math.min(Math.round((val-max)/max*100),100);
-        const excessStop=Math.min(normalPct+excessPct,100);
         bar.style.width='100%';
         bar.style.background=`linear-gradient(to right, ${dark} 0% ${excessPct}%, ${base} ${excessPct}% 100%)`;
       }
       bar.classList.remove('over');
-      document.getElementById(`card-${key}`).classList.toggle('complete',val>=max);
+      applyCardGradient(key, val/max);
     });
     const wml=water[active]||0,wmax=goals.water,wrem=wmax-wml;
     document.getElementById('gc-water-val').textContent=`${(wml/1000).toFixed(1)}L`;
@@ -821,10 +874,27 @@
       const normalPct=Math.round(wmax/wml*100);
       const excessStop=Math.min(normalPct+Math.round((wml-wmax)/wmax*100),100);
       wb.style.width='100%';
-      wb.style.background=`linear-gradient(to right, #a09890 0% ${Math.round((wml-wmax)/wml*100)}%, var(--water) ${Math.round((wml-wmax)/wml*100)}% 100%)`;
+      const excessPct=Math.round((wml-wmax)/wml*100);
+      wb.style.background=`linear-gradient(to right, #3a9878 0% ${excessPct}%, var(--water-text) ${excessPct}% 100%)`;
     }
     wb.classList.remove('over');
-    document.getElementById('card-water').classList.toggle('complete',wml>=wmax);
+    // progressive water card — uses --water color (212,207,200)
+    const waterCard = document.getElementById('card-water');
+    const wRatio = Math.min(wml/wmax, 1);
+    if (wRatio <= 0) {
+      waterCard.style.background = 'rgba(100,210,180,0.15)';
+      waterCard.style.borderColor = '';
+      waterCard.classList.remove('complete');
+    } else if (wRatio >= 1) {
+      waterCard.style.background = '';
+      waterCard.style.borderColor = '';
+      waterCard.classList.add('complete');
+    } else {
+      const a = Math.round(wRatio * 0.55 * 100) / 100;
+      waterCard.style.background = `rgba(100,210,180,${a})`;
+      waterCard.style.borderColor = `rgba(100,210,180,${Math.min(wRatio * 1.2, 0.5)})`;
+      waterCard.classList.remove('complete');
+    }
     // update big-add kcal progress ring
     const kcalRatio = t.kcal / goals.kcal;
     const outer = document.getElementById('bigAddOuter');
@@ -987,6 +1057,12 @@
       log[active] = log[active].filter(e=>e.name!==pendingDelete.name);
       saveLog(); render();
     } else if (pendingDelete.type==='cat') {
+      const deletedName = catalog[pendingDelete.index].name;
+      const isBuiltin = BUILTIN_DB.some(it => it.name === deletedName);
+      if (isBuiltin && !deletedBuiltins.includes(deletedName)) {
+        deletedBuiltins.push(deletedName);
+        saveDeletedBuiltins();
+      }
       catalog.splice(pendingDelete.index,1);
       saveCatalog(); renderFoodList();
     }
@@ -1002,6 +1078,8 @@
     setCatUnit('g');
     updateCatPanelMode();
     document.getElementById('catOverlay').classList.add('open');
+    const query = document.getElementById('searchInput').value.trim();
+    if (query) { const el=document.getElementById('catName'); el.value=query; }
     setTimeout(()=>{ const el=document.getElementById('catName'); el.removeAttribute('readonly'); el.focus(); }, 100);
   }
   function openCatEditPanel(idx) {
@@ -1088,7 +1166,7 @@
   let freqExpanded = false;
   let activeCat = null; // null = show categories grid, string = show foods of that category
 
-  const FOOD_CATEGORIES = [{"id":"bevande","label":"Bevande","icon":"ti-droplet","names":["Latte di soia","Latte di avena","Succo d'arancia","Caffè espresso","Proteina whey"]},{"id":"cereali","label":"Cereali","icon":"ti-wheat","names":["Pasta (cotta)","Pane bianco","Pane integrale","Pane di segale","Grissini","Fiocchi d'avena","Crackers","Cornflakes","Farro (cotto)","Orzo (cotto)","Gnocchi","Piadina","Fette biscottate","Riso (cotto)","Pizza margherita"]},{"id":"dolci","label":"Dolci & Snack","icon":"ti-cake","names":["Babà al rum","Sfogliatella riccia","Sfogliatella frolla","Millefoglie","Torta caprese","Tiramisù","Cannolo siciliano","Pastiera napoletana","Panna cotta","Crostata di marmellata","Torta della nonna","Zeppole","Struffoli","Panettone","Colomba pasquale","Gelato alla crema","Gelato al cioccolato","Granita al limone","Biscotti secchi","Miele","Marmellata","Cioccolato fondente","Cioccolato al latte","Olio d'oliva","Noci","Mandorle","Arachidi","Burro di arachidi"]},{"id":"frutta","label":"Frutta","icon":"ti-apple","names":["Mela","Banana","Arancia","Kiwi","Fragole","Uva","Pera","Pesca","Anguria","Melone","Mango","Avocado"]},{"id":"latticini","label":"Latticini","icon":"ti-cheese","names":["Latte intero","Latte parzialmente scremato","Yogurt bianco intero","Yogurt greco","Mozzarella","Parmigiano Reggiano","Ricotta","Pecorino","Grana Padano","Burro","Fiordilatte"]},{"id":"legumi","label":"Legumi","icon":"ti-leaf","names":["Ceci (cotti)","Lenticchie (cotte)","Fagioli (cotti)","Piselli","Edamame","Tofu"]},{"id":"piatti","label":"Piatti pronti","icon":"ti-salad","names":["Spaghetti al pomodoro","Pasta al ragù","Pasta al forno","Spaghetti carbonara","Pasta all'amatriciana","Pasta cacio e pepe","Risotto ai funghi","Risotto alla milanese","Lasagna","Parmigiana di melanzane","Ciambotta napoletana","Caponata siciliana","Minestrone","Ribollita","Pollo alla cacciatora","Cotoletta alla milanese","Saltimbocca alla romana","Ossobuco","Polpette al sugo","Frittata di verdure","Supplì","Arancino","Focaccia","Calzone","Insalata caprese","Bruschetta al pomodoro","Pizza margherita"]},{"id":"proteine","label":"Proteine","icon":"ti-meat","names":["Petto di pollo","Coscia di pollo","Manzo (macinato)","Manzo (fesa)","Vitello","Maiale (lonza)","Salmone","Tonno al naturale","Tonno sott'olio","Merluzzo","Branzino","Orata","Gamberetti","Uovo intero","Albume d'uovo","Prosciutto crudo","Prosciutto cotto","Bresaola","Salame Milano","Mortadella","Speck"]},{"id":"verdure","label":"Verdure","icon":"ti-carrot","names":["Pomodoro","Insalata mista","Spinaci","Zucchine","Melanzane","Peperoni","Broccoli","Cavolfiore","Carote","Cipolla","Aglio","Funghi champignon","Asparagi","Carciofi","Cavolo nero","Patate"]}];
+  const FOOD_CATEGORIES = [{"id":"frequenti","label":"Frequenti","icon":"ti-flame","names":[],"special":"frequenti"},{"id":"miei","label":"Miei","icon":"ti-user","names":[],"special":"miei"},{"id":"bevande","label":"Bevande","icon":"ti-droplet","names":["Latte di soia","Latte di avena","Succo d'arancia","Caffè espresso","Proteina whey"]},{"id":"cereali","label":"Cereali","icon":"ti-bread","names":["Pasta (cotta)","Pane bianco","Pane integrale","Pane di segale","Grissini","Fiocchi d'avena","Crackers","Cornflakes","Farro (cotto)","Orzo (cotto)","Gnocchi","Piadina","Fette biscottate","Riso (cotto)","Pizza margherita"]},{"id":"dolci","label":"Dolci & Snack","icon":"ti-cake","names":["Babà al rum","Sfogliatella riccia","Sfogliatella frolla","Millefoglie","Torta caprese","Tiramisù","Cannolo siciliano","Pastiera napoletana","Panna cotta","Crostata di marmellata","Torta della nonna","Zeppole","Struffoli","Panettone","Colomba pasquale","Gelato alla crema","Gelato al cioccolato","Granita al limone","Biscotti secchi","Miele","Marmellata","Cioccolato fondente","Cioccolato al latte","Olio d'oliva","Noci","Mandorle","Arachidi","Burro di arachidi"]},{"id":"frutta","label":"Frutta","icon":"ti-apple","names":["Mela","Banana","Arancia","Kiwi","Fragole","Uva","Pera","Pesca","Anguria","Melone","Mango","Avocado"]},{"id":"latticini","label":"Latticini","icon":"ti-cheese","names":["Latte intero","Latte parzialmente scremato","Yogurt bianco intero","Yogurt greco","Mozzarella","Parmigiano Reggiano","Ricotta","Pecorino","Grana Padano","Burro","Fiordilatte"]},{"id":"legumi","label":"Legumi","icon":"ti-leaf","names":["Ceci (cotti)","Lenticchie (cotte)","Fagioli (cotti)","Piselli","Edamame","Tofu"]},{"id":"piatti","label":"Piatti pronti","icon":"ti-salad","names":["Spaghetti al pomodoro","Pasta al ragù","Pasta al forno","Spaghetti carbonara","Pasta all'amatriciana","Pasta cacio e pepe","Risotto ai funghi","Risotto alla milanese","Lasagna","Parmigiana di melanzane","Ciambotta napoletana","Caponata siciliana","Minestrone","Ribollita","Pollo alla cacciatora","Cotoletta alla milanese","Saltimbocca alla romana","Ossobuco","Polpette al sugo","Frittata di verdure","Supplì","Arancino","Focaccia","Calzone","Insalata caprese","Bruschetta al pomodoro","Pizza margherita"]},{"id":"proteine","label":"Proteine","icon":"ti-meat","names":["Petto di pollo","Coscia di pollo","Manzo (macinato)","Manzo (fesa)","Vitello","Maiale (lonza)","Salmone","Tonno al naturale","Tonno sott'olio","Merluzzo","Branzino","Orata","Gamberetti","Uovo intero","Albume d'uovo","Prosciutto crudo","Prosciutto cotto","Bresaola","Salame Milano","Mortadella","Speck"]},{"id":"verdure","label":"Verdure","icon":"ti-carrot","names":["Pomodoro","Insalata mista","Spinaci","Zucchine","Melanzane","Peperoni","Broccoli","Cavolfiore","Carote","Cipolla","Aglio","Funghi champignon","Asparagi","Carciofi","Cavolo nero","Patate"]},{"id":"tutti","label":"Tutti","icon":"ti-list","names":[],"special":"tutti"}];
 
   function getCatForFood(name) {
     for (const cat of FOOD_CATEGORIES) {
@@ -1107,38 +1185,35 @@
     renderSearchResults(query);
   }
 
+  function getCatCount(cat) {
+    if (cat.special === 'frequenti') return Object.keys(freq).filter(n => freq[n] > 0 && catalog.find(it=>it.name===n)).length;
+    if (cat.special === 'miei') return catalog.filter(it => !FOOD_CATEGORIES.some(c => !c.special && c.names && c.names.includes(it.name))).length;
+    if (cat.special === 'tutti') return catalog.length;
+    return catalog.filter(it => cat.names && cat.names.includes(it.name)).length;
+  }
+
   function renderCategoryGrid() {
     const wrap = document.getElementById('foodList');
     wrap.innerHTML = '';
     const grid = document.createElement('div');
     grid.style.cssText = 'display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:4px 0 8px';
     FOOD_CATEGORIES.forEach(cat => {
-      const count = catalog.filter(it => cat.names.includes(it.name)).length +
-                    catalog.filter(it => !FOOD_CATEGORIES.some(c => c.names.includes(it.name))).length * (cat.id === 'snack' ? 0 : 0);
-      const catCount = catalog.filter(it => cat.names.includes(it.name)).length;
+      const count = getCatCount(cat);
+      const miei_incomplete = cat.special === 'miei'
+        ? catalog.filter(it => !FOOD_CATEGORIES.some(c => !c.special && c.names && c.names.includes(it.name)) && isIncomplete(it)).length
+        : 0;
       const card = document.createElement('div');
-      card.style.cssText = 'background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 12px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;transition:border-color 0.15s';
-      card.innerHTML = `<i class="ti ${cat.icon}" style="font-size:28px;color:var(--muted)"></i>
+      card.style.cssText = 'background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 12px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;transition:border-color 0.15s;position:relative';
+      card.innerHTML = `
+        ${miei_incomplete > 0 ? '<span class="food-incomplete-badge" style="top:-6px;left:-6px">!</span>' : ''}
+        <i class="ti ${cat.icon}" style="font-size:28px;color:var(--muted)"></i>
         <span style="font-size:13px;font-weight:600;color:var(--text);text-align:center">${cat.label}</span>
-        <span style="font-size:10px;color:var(--muted)">${catCount} alimenti</span>`;
+        <span style="font-size:10px;color:var(--muted)">${count} alimenti</span>`;
       card.onmouseenter = () => card.style.borderColor = 'var(--accent)';
       card.onmouseleave = () => card.style.borderColor = 'var(--border)';
       card.onclick = () => { activeCat = cat.id; renderFoodList(); };
       grid.appendChild(card);
     });
-    // "altri" card for uncategorized user foods
-    const uncategorized = catalog.filter(it => !FOOD_CATEGORIES.some(c => c.names.includes(it.name)));
-    if (uncategorized.length) {
-      const card = document.createElement('div');
-      card.style.cssText = 'background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 12px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;transition:border-color 0.15s';
-      card.innerHTML = `<i class="ti ti-dots" style="font-size:28px;color:var(--muted)"></i>
-        <span style="font-size:13px;font-weight:600;color:var(--text);text-align:center">Personalizzati</span>
-        <span style="font-size:10px;color:var(--muted)">${uncategorized.length} alimenti</span>`;
-      card.onmouseenter = () => card.style.borderColor = 'var(--accent)';
-      card.onmouseleave = () => card.style.borderColor = 'var(--border)';
-      card.onclick = () => { activeCat = 'altri'; renderFoodList(); };
-      grid.appendChild(card);
-    }
     wrap.appendChild(grid);
   }
 
@@ -1147,24 +1222,34 @@
     wrap.innerHTML = '';
     const cat = FOOD_CATEGORIES.find(c => c.id === activeCat);
     let items;
-    if (activeCat === 'altri') {
-      items = catalog.map((it,idx) => ({...it,idx})).filter(it => !FOOD_CATEGORIES.some(c => c.names.includes(it.name)));
+    if (activeCat === 'frequenti') {
+      items = catalog.map((it,idx) => ({...it,idx,score:freq[it.name]||0}))
+        .filter(it => it.score > 0)
+        .sort((a,b) => b.score - a.score);
+    } else if (activeCat === 'miei') {
+      items = catalog.map((it,idx) => ({...it,idx}))
+        .filter(it => !FOOD_CATEGORIES.some(c => !c.special && c.names && c.names.includes(it.name)))
+        .sort((a,b) => { const ai=isIncomplete(a)?1:0,bi=isIncomplete(b)?1:0; if(bi!==ai) return bi-ai; return b.idx-a.idx; });
+    } else if (activeCat === 'tutti') {
+      items = catalog.map((it,idx) => ({...it,idx}))
+        .sort((a,b) => { const ai=isIncomplete(a)?1:0,bi=isIncomplete(b)?1:0; if(bi!==ai) return bi-ai; return a.name.localeCompare(b.name,'it'); });
     } else {
-      items = catalog.map((it,idx) => ({...it,idx})).filter(it => cat && cat.names.includes(it.name));
+      items = catalog.map((it,idx) => ({...it,idx}))
+        .filter(it => cat && cat.names && cat.names.includes(it.name))
+        .sort((a,b) => { const ai=isIncomplete(a)?1:0,bi=isIncomplete(b)?1:0; if(bi!==ai) return bi-ai; return a.name.localeCompare(b.name,'it'); });
     }
-    // back button
     const back = document.createElement('div');
     back.style.cssText = 'display:flex;align-items:center;gap:8px;cursor:pointer;margin-bottom:12px;color:var(--accent);font-size:13px';
-    back.innerHTML = `<i class="ti ti-arrow-left" style="font-size:16px"></i> ${cat ? cat.label : 'Personalizzati'}`;
+    back.innerHTML = `<i class="ti ti-arrow-left" style="font-size:16px"></i> ${cat ? cat.label : ''}`;
     back.onclick = () => { activeCat = null; renderFoodList(); };
     wrap.appendChild(back);
     if (!items.length) {
       wrap.innerHTML += '<div class="empty">nessun alimento in questa categoria</div>';
       return;
     }
-    items.sort((a,b) => { const ai=isIncomplete(a)?1:0,bi=isIncomplete(b)?1:0; if(bi!==ai) return bi-ai; return b.idx-a.idx; });
     items.forEach(item => wrap.appendChild(makeItem(item)));
   }
+
 
   function renderSearchResults(query) {
     const wrap=document.getElementById('foodList');
@@ -1557,6 +1642,22 @@
     }
   });
 
+  function askRestoreCatalog() {
+    document.getElementById('restoreOverlay').classList.add('open');
+  }
+  function confirmRestoreCatalog() {
+    deletedBuiltins = [];
+    saveDeletedBuiltins();
+    const existingNames = new Set(catalog.map(it => it.name.toLowerCase()));
+    const toAdd = BUILTIN_DB.filter(it => !existingNames.has(it.name.toLowerCase()));
+    if (toAdd.length > 0) {
+      catalog = [...catalog, ...toAdd];
+      saveCatalog();
+    }
+    document.getElementById('restoreOverlay').classList.remove('open');
+    renderFoodList();
+  }
+
   loadProfile();
   loadGoalsToProfile();
   applyTheme(currentTheme);
@@ -1567,19 +1668,56 @@
     navigator.serviceWorker.register('sw.js');
   }
 
-  // Swipe right to go back in catalog
+  // Swipe right to go back in catalog with visual feedback
   (function() {
-    let swipeStartX = 0, swipeStartY = 0;
-    document.getElementById('page-search').addEventListener('touchstart', e => {
+    let swipeStartX = 0, swipeStartY = 0, swiping = false;
+    const page = document.getElementById('page-search');
+    const foodList = document.getElementById('foodList');
+
+    page.addEventListener('touchstart', e => {
+      if (activeCat === null) return;
       swipeStartX = e.touches[0].clientX;
       swipeStartY = e.touches[0].clientY;
+      swiping = true;
     }, { passive: true });
-    document.getElementById('page-search').addEventListener('touchend', e => {
+
+    page.addEventListener('touchmove', e => {
+      if (!swiping || activeCat === null) return;
+      const dx = e.touches[0].clientX - swipeStartX;
+      const dy = Math.abs(e.touches[0].clientY - swipeStartY);
+      if (dy > 40) { swiping = false; foodList.style.transform = ''; foodList.style.opacity = ''; return; }
+      if (dx > 0) {
+        foodList.style.transition = 'none';
+        foodList.style.transform = `translateX(${Math.min(dx, 120)}px)`;
+        foodList.style.opacity = `${1 - Math.min(dx/200, 0.6)}`;
+      }
+    }, { passive: true });
+
+    page.addEventListener('touchend', e => {
+      if (!swiping || activeCat === null) return;
+      swiping = false;
       const dx = e.changedTouches[0].clientX - swipeStartX;
       const dy = Math.abs(e.changedTouches[0].clientY - swipeStartY);
-      if (dx > 60 && dy < 40 && activeCat !== null) {
-        activeCat = null;
-        renderFoodList();
+      if (dx > 60 && dy < 40) {
+        foodList.style.transition = 'transform 0.2s ease, opacity 0.2s ease';
+        foodList.style.transform = 'translateX(100%)';
+        foodList.style.opacity = '0';
+        setTimeout(() => {
+          activeCat = null;
+          renderFoodList();
+          foodList.style.transition = 'none';
+          foodList.style.transform = 'translateX(-30px)';
+          foodList.style.opacity = '0';
+          requestAnimationFrame(() => {
+            foodList.style.transition = 'transform 0.2s ease, opacity 0.2s ease';
+            foodList.style.transform = '';
+            foodList.style.opacity = '';
+          });
+        }, 200);
+      } else {
+        foodList.style.transition = 'transform 0.2s ease, opacity 0.2s ease';
+        foodList.style.transform = '';
+        foodList.style.opacity = '';
       }
     }, { passive: true });
   })();
