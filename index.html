@@ -12,6 +12,7 @@
 <meta name="apple-mobile-web-app-title" content="Logger">
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -27,7 +28,7 @@
     --g: #f99585;
     --water: #d4cfc8;
     --green-grad: linear-gradient(135deg, #1a3a1a, #1e4d1e);
-    --tab-h: 64px;
+    --tab-h: 80px;
   }
   html[data-theme="light"] {
     --bg: #f2f2f7;
@@ -90,28 +91,35 @@
 
   /* BOTTOM NAV */
   .bottom-nav {
-    position: fixed; bottom: 0; left: 0; right: 0; height: var(--tab-h);
-    background: transparent; display: flex; align-items: center; justify-content: center;
-    gap: 10px; z-index: 100; padding: 8px 16px calc(8px + env(safe-area-inset-bottom));
+    position: fixed; bottom: 0; left: 0; right: 0;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 100; padding-bottom: calc(20px + env(safe-area-inset-bottom));
     transform: translateZ(0); -webkit-transform: translateZ(0);
+    pointer-events: none;
   }
   .bottom-nav::before {
     content: '';
     position: absolute;
     left: 0; right: 0; bottom: 0;
-    height: 130px;
-    background: linear-gradient(to top, var(--bg) 0%, var(--bg) 40%, transparent 100%);
+    height: 140px;
+    background: linear-gradient(to top, var(--bg) 0%, var(--bg) 35%, transparent 100%);
     z-index: -1;
     pointer-events: none;
   }
+  .nav-pill {
+    display: flex; align-items: center; gap: 4px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 999px; padding: 5px 6px;
+    pointer-events: all;
+  }
   .nav-tab {
-    flex: 1; max-width: 72px; aspect-ratio: 1.5/1;
     display: flex; align-items: center; justify-content: center;
-    background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
-    color: var(--muted); font-size: 19px; cursor: pointer;
+    width: 52px; height: 36px; border-radius: 999px;
+    background: none; border: none;
+    color: var(--muted); font-size: 20px; cursor: pointer;
     transition: all 0.15s;
   }
-  .nav-tab.active { color: var(--accent); border-color: var(--accent); background: #1e2530; }
+  .nav-tab.active { background: var(--accent); color: #0f0f0f; }
   .nav-tab:active { transform: scale(0.93); }
 
   /* TYPE */
@@ -599,12 +607,12 @@
 </div>
 
 <!-- BOTTOM NAV -->
-<nav class="bottom-nav">
-  <button class="nav-tab active" id="nav-home" onclick="switchPage('home')">🏠</button>
-  <button class="nav-tab" id="nav-search" onclick="switchPage('search')">🔍</button>
-  <button class="nav-tab" id="nav-report" onclick="switchPage('report')">⏱️</button>
-  <button class="nav-tab" id="nav-profile" onclick="switchPage('profile')">🙋</button>
-</nav>
+<nav class="bottom-nav"><div class="nav-pill">
+  <button class="nav-tab active" id="nav-home" onclick="switchPage('home')"><i class="ti ti-home"></i></button>
+  <button class="nav-tab" id="nav-search" onclick="switchPage('search')"><i class="ti ti-search"></i></button>
+  <button class="nav-tab" id="nav-report" onclick="switchPage('report')"><i class="ti ti-chart-pie"></i></button>
+  <button class="nav-tab" id="nav-profile" onclick="switchPage('profile')"><i class="ti ti-user"></i></button>
+</div></nav>
 
 <!-- QUANTITY SHEET (log from catalog with grams) -->
 <div class="add-overlay" id="qtyOverlay" onclick="closeQtySheet(event)">
@@ -745,7 +753,9 @@
   }
   function openSearchFromHome() {
     switchPage('search');
-    setTimeout(()=>document.getElementById('searchInput').focus(),100);
+    const inp = document.getElementById('searchInput');
+    inp.focus();
+    setTimeout(()=>inp.focus(), 50);
   }
 
   // ══ RENDER HOME ══
