@@ -28,7 +28,7 @@
     --p: #b89fc8;
     --g: #f99585;
     --water: #d4cfc8;
-    --green-grad: linear-gradient(135deg, #1a3a1a, #1e4d1e);
+    --green-grad: linear-gradient(135deg, #0f2a0f, #123512);
     --tab-h: 80px;
   }
   html[data-theme="light"] {
@@ -376,28 +376,24 @@
   <div class="summary-rich">
     <div class="goals-grid">
       <div class="goal-card full gc-kcal" id="card-kcal">
-        <div class="gc-label">TDEE / kcal</div>
-        <div class="gc-val" id="gc-kcal-val">0 / 1900</div>
-        <div class="gc-sub" id="gc-kcal-rem">1900 kcal rimanenti</div>
-        <div class="gc-bar-track"><div class="gc-bar-fill" id="gc-kcal-bar" style="width:0%"></div></div>
+        <div class="gc-label">TDEE</div>
+        <div style="display:flex;align-items:baseline;gap:5px"><div class="gc-val" id="gc-kcal-val">0 / 1900</div><span style="font-size:11px;color:var(--muted)">kcal</span></div>
+                <div class="gc-bar-track"><div class="gc-bar-fill" id="gc-kcal-bar" style="width:0%"></div></div>
       </div>
       <div class="goal-card gc-c" id="card-c">
         <div class="gc-label">Carboidrati</div>
         <div class="gc-val" id="gc-c-val">0 / 200g</div>
-        <div class="gc-sub" id="gc-c-rem">200g rimanenti</div>
-        <div class="gc-bar-track"><div class="gc-bar-fill" id="gc-c-bar" style="width:0%"></div></div>
+                <div class="gc-bar-track"><div class="gc-bar-fill" id="gc-c-bar" style="width:0%"></div></div>
       </div>
       <div class="goal-card gc-p" id="card-p">
         <div class="gc-label">Proteine</div>
         <div class="gc-val" id="gc-p-val">0 / 135g</div>
-        <div class="gc-sub" id="gc-p-rem">135g rimanenti</div>
-        <div class="gc-bar-track"><div class="gc-bar-fill" id="gc-p-bar" style="width:0%"></div></div>
+                <div class="gc-bar-track"><div class="gc-bar-fill" id="gc-p-bar" style="width:0%"></div></div>
       </div>
       <div class="goal-card gc-g" id="card-g">
         <div class="gc-label">Grassi</div>
         <div class="gc-val" id="gc-g-val">0 / 50g</div>
-        <div class="gc-sub" id="gc-g-rem">50g rimanenti</div>
-        <div class="gc-bar-track"><div class="gc-bar-fill" id="gc-g-bar" style="width:0%"></div></div>
+                <div class="gc-bar-track"><div class="gc-bar-fill" id="gc-g-bar" style="width:0%"></div></div>
       </div>
       <div class="goal-card gc-water" id="card-water">
         <div class="gc-label">Acqua</div>
@@ -408,8 +404,7 @@
             <button class="water-tap-btn" onclick="addWater(1)" style="padding:2px 10px;font-size:14px">+</button>
           </div>
         </div>
-        <div class="gc-sub" id="gc-water-rem">2.0L rimanenti</div>
-        <div class="gc-bar-track"><div class="gc-bar-fill" id="gc-water-bar" style="width:0%"></div></div>
+                <div class="gc-bar-track"><div class="gc-bar-fill" id="gc-water-bar" style="width:0%"></div></div>
       </div>
     </div>
   </div>
@@ -788,7 +783,7 @@
      {key:'g',  val:t.g,   max:goals.g,   unit:'g'}].forEach(({key,val,max,unit})=>{
       const rem=max-val;
       document.getElementById(`gc-${key}-val`).textContent=`${Math.round(val)} / ${max}${key==='kcal'?'':unit}`;
-      document.getElementById(`gc-${key}-rem`).textContent=rem>=0?`${Math.round(rem)}${unit} rimanenti`:`${Math.round(-rem)}${unit} oltre`;
+      // sub label removed
       const bar=document.getElementById(`gc-${key}-bar`);
       const {base,dark}=BAR_COLORS[key];
       if (val<=max) {
@@ -807,7 +802,7 @@
     });
     const wml=water[active]||0,wmax=goals.water,wrem=wmax-wml;
     document.getElementById('gc-water-val').textContent=`${(wml/1000).toFixed(1)}L`;
-    document.getElementById('gc-water-rem').textContent=wrem>=0?`${(wrem/1000).toFixed(1)}L rimanenti`:`+${(-wrem/1000).toFixed(1)}L over`;
+    // water sub label removed
     const wb=document.getElementById('gc-water-bar');
     if (wml<=wmax) {
       wb.style.width=pct(wml,wmax)+'%';
