@@ -602,7 +602,7 @@
     </div>
   </div>
   <div class="footer" style="margin-top:8px">
-    <div style="color:var(--muted);font-size:11px;margin-bottom:4px">Logger v1.9</div>
+    <div style="color:var(--muted);font-size:11px;margin-bottom:4px">Logger v1.5</div>
     <a href="https://github.com/cloveloper" target="_blank">made with ♡ by clovis</a>
   </div>
 </div>
@@ -1523,9 +1523,15 @@
         ptr.style.height = '64px';
         svg.style.opacity = '1';
         svg.style.animation = 'ptr-spin 0.5s linear infinite';
-        document.body.style.overflow = 'hidden';
-        document.body.style.pointerEvents = 'none';
-        setTimeout(() => window.location.reload(), 500);
+        // freeze entire UI
+        const freezeEl = document.createElement('div');
+        freezeEl.style.cssText = 'position:fixed;inset:0;z-index:9998;background:var(--bg);';
+        // take a snapshot of current scroll position
+        const scrollY = window.scrollY;
+        document.body.appendChild(freezeEl);
+        // keep ptr on top
+        ptr.style.zIndex = '9999';
+        setTimeout(() => window.location.reload(), 600);
       } else {
         ptr.style.height = '0';
         svg.style.opacity = '0';
